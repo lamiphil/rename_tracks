@@ -1,5 +1,5 @@
 import os
-
+import re
 
 
 def remove_numbers(track_file_name):
@@ -48,7 +48,16 @@ if __name__ == "__main__":
         track = track.replace("(Original Mix)", "")
         
         # Remove the brackets and its content
-        track = track.replace("[]")
+        track = re.sub(r'\[.*?\]', '', track)
+
+        # Find the last occurrence of the substring " - " to identify the section to remove
+        last_occurrence_index = track.rfind(" - ")
+        base, extension = os.path.splitext(track)
+        last_separator_index = base.rfind(" - ")
+        if last_separator_index != -1 and not extension:
+            track =  base[:last_separator_index] + extension
+
+        track = track.replace(" .mp3", ".mp3")
 
         print(track)
         os.rename("/home/lamiphil/Music/" + track_name, "/home/lamiphil/Music/" + track)
