@@ -46,6 +46,7 @@ if __name__ == "__main__":
         track = track.replace("'T", "'t")
         track = track.replace("  ", " ")
         track = track.replace("(Original Mix)", "")
+        track = track.replace("And", "and")
         
         # Remove the brackets and its content
         track = re.sub(r'\[.*?\]', '', track)
